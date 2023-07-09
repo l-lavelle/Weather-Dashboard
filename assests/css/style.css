@@ -1,0 +1,47 @@
+
+header{
+    background-image: linear-gradient(to left, lightblue,darkblue);
+    color:white;
+    padding: 50px;
+    font-size: 2.5em;
+    margin: 1%;
+}
+h1{
+    margin-left: 2%;
+}
+
+
+#content{
+    display:grid;
+    grid-template-columns: 35% 65%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "left top"
+    "left bottom"
+    "left bottom";
+    
+    /* grid-template:  */
+        /* [row1-start]"left top" 150px 300px[row1-end]
+        [row2-start]"left bottom" 150px 300px [row2-end]
+        [row3-start]"bottom" 40px [row3-end] 
+        100px auto ; */
+}
+#content>div{
+    padding:20px;
+}
+.item-1{
+    grid-area: left;
+    border: 5px solid purple;
+}
+#current-city{
+    grid-area: top;
+}
+#forecast{
+    grid-area: bottom;
+}
+#current-city{
+    border: 3px solid red;
+}
+#forecast{
+    border: 2px solid black;
+}
