@@ -1,16 +1,13 @@
-// var requestUrl=""
-// const url = "http://api.openweathermap.org/data/2.5/weather?q=${locationValue}&APPID=API";
 var serachBtn = document.getElementById("search-btn");
 var list = document.getElementById("city-history");
-// var requestUrl= "https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid="+apiKey
 
-// var requestUrl= "https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=efb1af74c4d1b2a8ddba2ca5d4af980d"
 var lat;
 var lon;
+var cityName;
 
 function getCity() {
   var input = document.getElementById("cityInput");
-  var cityName = input.value;
+  cityName = input.value;
 
   // if not avaibale or if empty string
   var requestCity =
@@ -43,14 +40,59 @@ function getApi() {
     "&lon=" +
     lon +
     "&appid=" +
-    apiKey;
+    apiKey +
+    "&units=imperial";
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
     })
+    // data.list.length
     .then(function (data) {
       console.log(data);
-      var todayForecast = document.getElementById("current-city");
+
+      //   try for each ? need last day 5
+      var timeArray = [8, 16, 24, 32, 40];
+      for (var i = 8; i < data.list.length; i += 8) {
+        console.log(data.list[i].dt_txt);
+        var furtureForecast = document.getElementById("future-forecast");
+        var date1 = document.createElement("p");
+        var futureWeatherTemp = document.createElement("p");
+        var futuretWeatherWind = document.createElement("p");
+        var futureWeatherHumidty = document.createElement("p");
+        date1.textContent = dayjs(data.list[i].dt_txt).format("MM/DD/YYYY");
+        futureWeatherTemp.textContent =
+          "Temperature: " + data.list[i].main.temp;
+        futuretWeatherWind.textContent =
+          "Wind Speed: " + data.list[i].wind.speed;
+        futureWeatherHumidty.textContent =
+          "Humidity: " + data.list[i].main.humidity;
+        furtureForecast.append(
+          date1,
+          futureWeatherTemp,
+          futuretWeatherWind,
+          futureWeatherHumidty
+        );
+      }
+
+      var todayForecast = document.getElementById("current-forecast");
+      var nameCity = document.createElement("h2");
+      var date = document.createElement("p");
+      var currentWeatherTemp = document.createElement("p");
+      var currentWeatherWind = document.createElement("p");
+      var currentWeatherHumidty = document.createElement("p");
+      nameCity.textContent = cityName;
+      date.textContent = dayjs(data.list[0].dt_txt).format("MM/DD/YYYY");
+      currentWeatherTemp.textContent = "Temperature: " + data.list[0].main.temp;
+      currentWeatherWind.textContent = "Wind Speed: " + data.list[0].wind.speed;
+      currentWeatherHumidty.textContent =
+        "Humidity: " + data.list[0].main.humidity;
+      todayForecast.append(
+        nameCity,
+        date,
+        currentWeatherTemp,
+        currentWeatherWind,
+        currentWeatherHumidty
+      );
     });
 }
 
