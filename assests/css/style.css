@@ -1,47 +1,84 @@
-
-header{
-    background-image: linear-gradient(to left, lightblue,darkblue);
-    color:white;
-    padding: 50px;
-    font-size: 2.5em;
-    margin: 1%;
+/* Header */
+header {
+  background-image: linear-gradient(to left, lightblue, darkblue);
+  color: white;
+  padding: 50px;
+  font-size: 2.5em;
+  margin: 1%;
 }
-h1{
-    margin-left: 2%;
+h1 {
+  margin-left: 2%;
 }
 
-
-#content{
-    display:grid;
-    grid-template-columns: 35% 65%;
-    grid-template-rows: auto;
-    grid-template-areas: 
+/* Grid setup for main elements */
+#content {
+  display: grid;
+  grid-template-columns: 35% 65%;
+  grid-template-rows: auto;
+  grid-template-areas:
     "left top"
     "left bottom"
     "left bottom";
-    
-    /* grid-template:  */
-        /* [row1-start]"left top" 150px 300px[row1-end]
-        [row2-start]"left bottom" 150px 300px [row2-end]
-        [row3-start]"bottom" 40px [row3-end] 
-        100px auto ; */
 }
-#content>div{
-    padding:20px;
+#content > div {
+  padding: 20px;
 }
-.item-1{
-    grid-area: left;
-    border: 5px solid purple;
+#search-history {
+  grid-area: left;
+  border: 5px solid purple;
+  display: flex;
+  flex-direction: column;
 }
-#current-city{
-    grid-area: top;
+#current-forecast {
+  grid-area: top;
 }
-#forecast{
-    grid-area: bottom;
+#future-forecast {
+  grid-area: bottom;
 }
-#current-city{
-    border: 3px solid red;
+
+/* Search attributes */
+#search-history > h2 {
+  font-size: 30px;
+  margin-bottom: 5%;
+  text-align: center;
+  text-decoration: underline;
 }
-#forecast{
-    border: 2px solid black;
+#cityInput {
+  padding: 5px;
+}
+#search-btn {
+  margin-top: 5%;
+  justify-content: center;
+  padding: 5px;
+}
+
+/* Search History attributes */
+#search-history > h3 {
+  font-size: 20px;
+  margin: 3%;
+  text-align: center;
+}
+#city-history {
+  display: flex;
+  flex-direction: column;
+}
+#city-history > button {
+  margin: 2%;
+  padding: 5px;
+  background-color: rgb(46, 67, 114);
+  color: white;
+  font-size: 1.2em;
+}
+#city-history > button:hover {
+  background-color: rgb(43, 106, 240);
+}
+
+#current-forecast {
+  border: 3px solid red;
+}
+#future-forecast {
+  border: 2px solid black;
+}
+#future-forecast > * {
+  color: blue;
 }
