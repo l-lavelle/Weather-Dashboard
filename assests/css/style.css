@@ -76,9 +76,13 @@ h1 {
 #current-forecast {
   border: 3px solid red;
 }
+
 #future-forecast {
   border: 2px solid black;
+  display: flex;
+  justify-content: space-between;
 }
-#future-forecast > * {
+#future-forecast > div {
   color: blue;
+  text-align: center;
 }
