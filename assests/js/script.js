@@ -60,7 +60,7 @@ function getApi() {
       return response.json();
     })
     .then(function (data) {
-      // console.log(data);
+      console.log(data);
       var nameCity = document.createElement("h2");
       nameCity.textContent = cityName;
       todayForecast.append(nameCity);
@@ -92,12 +92,12 @@ function getApi() {
 
         date.textContent = dayjs(data.list[0].dt_txt).format("MM/DD/YYYY");
         currentWeatherTemp.textContent =
-          "Temp: " + data.list[0].main.temp + "F";
+          "Temp: " + data.list[0].main.temp + "°F";
         currentimage;
         currentWeatherWind.textContent =
-          "Wind Speed: " + data.list[0].wind.speed;
+          "Wind Speed: " + data.list[0].wind.speed + "mph";
         currentWeatherHumidty.textContent =
-          "Humidity: " + data.list[0].main.humidity;
+          "Humidity: " + data.list[0].main.humidity + "%";
         docEl.append(
           date,
           currentimage,
