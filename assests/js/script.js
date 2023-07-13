@@ -25,7 +25,6 @@ function getCity() {
 }
 
 function request() {
-  // if not avaibale or if empty string
   var requestCity =
     "http://api.openweathermap.org/geo/1.0/direct?q=" +
     cityName +
@@ -110,7 +109,6 @@ function getApi() {
 }
 
 function searchHx(event) {
-  // var trail = event.innertext;
   cityName = event.srcElement.innerText;
   requestAgain();
 }
@@ -140,4 +138,4 @@ function requestAgain() {
 serachBtn.addEventListener("click", getCity);
 list.addEventListener("click", searchHx);
 
-// clean code, commets, css, buttons, constraints on textbox, readme and submti
+// clean code, commets, css, buttons, constraints on textbox, was supposed to use local storage

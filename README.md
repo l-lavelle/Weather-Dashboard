@@ -2,7 +2,7 @@
 
 ## Description
 
-This website is a weather dashboard that allows you search current and future conditions for city. The application is created with HTML, CSS, powered by Javascript and Day.js.
+This website is a weather dashboard that allows you search current and future conditions for city. The openweather api was used to populate weather data. The application is created with HTML, CSS, powered by Javascript and Day.js.
 
 The dashboard was developed with following criteria:
 
@@ -25,4 +25,4 @@ Enter city name into the input box and click on the search button. The weather w
 
 N/A
 
-## [Dashboard Link](https://l-lavelle.github.io/Work-Day-Scheduler/)
+## [Dashboard Link](https://l-lavelle.github.io/Weather-Dashboard/)
