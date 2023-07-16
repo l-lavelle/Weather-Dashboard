@@ -1,3 +1,4 @@
+var apiKey="efb1af74c4d1b2a8ddba2ca5d4af980d"
 var serachBtn = document.getElementById("search-btn");
 var list = document.getElementById("city-history");
 var todayForecast = document.getElementById("current-forecast");
