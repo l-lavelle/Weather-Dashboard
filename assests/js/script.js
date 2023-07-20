@@ -45,11 +45,17 @@ function request() {
 }
 var searchHistory = [];
 function appendCityNames(cityName) {
-  searchHistory.unshift(cityName);
-  if (searchHistory.length > 5) {
-    searchHistory.pop();
+  console.log(searchHistory.indexOf(cityName));
+  if (searchHistory.indexOf(cityName) === -1) {
+    searchHistory.unshift(cityName);
+    if (searchHistory.length > 5) {
+      searchHistory.pop();
+    }
+    window.localStorage.setItem(
+      "historyStorage",
+      JSON.stringify(searchHistory)
+    );
   }
-  window.localStorage.setItem("historyStorage", JSON.stringify(searchHistory));
 }
 window.addEventListener("load", getHistory);
 function getHistory() {
@@ -166,4 +172,4 @@ serachBtn.addEventListener("click", getCity);
 serachBtn.addEventListener("click", historyButtons);
 list.addEventListener("click", searchHx);
 
-// clean code, comments, css, buttons, constraints on textbox, fix local storage
+// clean code, comments, css, buttons, constraints on textbox,
