@@ -22,6 +22,7 @@ function getCity() {
 
   var input = document.getElementById("cityInput");
   cityName = input.value;
+  appendCityNames(cityName);
   request();
 }
 
@@ -39,11 +40,36 @@ function request() {
       console.log(data);
       lat = data[0].lat;
       lon = data[0].lon;
-      var hxEl = document.createElement("button");
-      hxEl.textContent = cityName;
-      list.append(hxEl);
       getApi();
     });
+}
+var searchHistory = [];
+function appendCityNames(cityName) {
+  searchHistory.unshift(cityName);
+  if (searchHistory.length > 5) {
+    searchHistory.pop();
+  }
+  window.localStorage.setItem("historyStorage", JSON.stringify(searchHistory));
+}
+window.addEventListener("load", getHistory);
+function getHistory() {
+  var retriedItems = JSON.parse(window.localStorage.getItem("historyStorage"));
+  if (retriedItems !== null) {
+    for (var i = 0; i < retriedItems.length; i++) {
+      searchHistory.push(retriedItems[i]);
+    }
+  }
+}
+
+function historyButtons() {
+  list.innerHTML = "";
+  let cityStorage = JSON.parse(window.localStorage.getItem("historyStorage"));
+  for (var i = 0; i < cityStorage.length; i++) {
+    var hxEl = document.createElement("button");
+    hxEl.classList.add("mystyle");
+    hxEl.textContent = cityStorage[i];
+    list.append(hxEl);
+  }
 }
 
 function getApi() {
@@ -137,6 +163,7 @@ function requestAgain() {
     });
 }
 serachBtn.addEventListener("click", getCity);
+serachBtn.addEventListener("click", historyButtons);
 list.addEventListener("click", searchHx);
 
-// clean code, commets, css, buttons, constraints on textbox, was supposed to use local storage
+// clean code, comments, css, buttons, constraints on textbox, fix local storage
