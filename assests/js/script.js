@@ -36,7 +36,6 @@ function getCity() {
     error1.setAttribute("style", "color:red");
     serachBtn.after(error1);
   } else {
-    appendCityNames(cityName);
     request();
   }
 }
@@ -51,9 +50,13 @@ function request() {
   fetch(requestCity).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        lat = data[0].lat;
-        lon = data[0].lon;
-        getApi();
+        if (data.length > 0) {
+          lat = data[0].lat;
+          lon = data[0].lon;
+          appendCityNames(cityName);
+          historyButtons();
+          getApi();
+        }
       });
     }
   });
@@ -61,7 +64,6 @@ function request() {
 
 // Get city name and add to array to set to local storage
 function appendCityNames(cityName) {
-  console.log(searchHistory.indexOf(cityName));
   if (searchHistory.indexOf(cityName) === -1) {
     searchHistory.unshift(cityName);
     if (searchHistory.length > 5) {
@@ -111,7 +113,6 @@ function getApi() {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
       var nameCity = document.createElement("h2");
       nameCity.textContent = cityName;
       todayForecast.append(nameCity);
@@ -182,9 +183,11 @@ function requestAgain() {
   fetch(requestCity).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        lat = data[0].lat;
-        lon = data[0].lon;
-        getApi();
+        if (data.length > 0) {
+          lat = data[0].lat;
+          lon = data[0].lon;
+          getApi();
+        }
       });
     }
   });
@@ -192,7 +195,6 @@ function requestAgain() {
 
 // event listeners
 serachBtn.addEventListener("click", getCity);
-serachBtn.addEventListener("click", historyButtons);
 list.addEventListener("click", searchHx);
 window.addEventListener("load", getHistory);
 
