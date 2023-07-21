@@ -1,3 +1,4 @@
+// Get Elements
 var apiKey = "efb1af74c4d1b2a8ddba2ca5d4af980d";
 var serachBtn = document.getElementById("search-btn");
 var list = document.getElementById("city-history");
@@ -8,10 +9,14 @@ var day3 = document.getElementById("day3");
 var day4 = document.getElementById("day4");
 var day5 = document.getElementById("day5");
 
+// Global Variables
+var error1;
 var lat;
 var lon;
 var cityName;
+var searchHistory = [];
 
+// Clear data, get city name from search bar
 function getCity() {
   todayForecast.innerHTML = "";
   day1.innerHTML = "";
@@ -22,28 +27,39 @@ function getCity() {
 
   var input = document.getElementById("cityInput");
   cityName = input.value;
-  appendCityNames(cityName);
-  request();
+  if (error1) {
+    error1.innerHTML = "";
+  }
+  if (cityName.trim().length === 0) {
+    error1 = document.createElement("h3");
+    error1.textContent = "Enter City Name";
+    error1.setAttribute("style", "color:red");
+    serachBtn.after(error1);
+  } else {
+    appendCityNames(cityName);
+    request();
+  }
 }
 
+// Get the lat and lon of city for weather api
 function request() {
   var requestCity =
     "https://api.openweathermap.org/geo/1.0/direct?q=" +
     cityName +
     "&limit=1&appid=" +
     apiKey;
-  fetch(requestCity)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      lat = data[0].lat;
-      lon = data[0].lon;
-      getApi();
-    });
+  fetch(requestCity).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        lat = data[0].lat;
+        lon = data[0].lon;
+        getApi();
+      });
+    }
+  });
 }
-var searchHistory = [];
+
+// Get city name and add to array to set to local storage
 function appendCityNames(cityName) {
   console.log(searchHistory.indexOf(cityName));
   if (searchHistory.indexOf(cityName) === -1) {
@@ -57,7 +73,8 @@ function appendCityNames(cityName) {
     );
   }
 }
-window.addEventListener("load", getHistory);
+
+// Get items from local storage on page reload and add to city array
 function getHistory() {
   var retriedItems = JSON.parse(window.localStorage.getItem("historyStorage"));
   if (retriedItems !== null) {
@@ -67,6 +84,7 @@ function getHistory() {
   }
 }
 
+// Get history from local storage and create search history buttons
 function historyButtons() {
   list.innerHTML = "";
   let cityStorage = JSON.parse(window.localStorage.getItem("historyStorage"));
@@ -78,6 +96,7 @@ function historyButtons() {
   }
 }
 
+// Get weather for current and next 5 days
 function getApi() {
   var requestUrl =
     "https://api.openweathermap.org/data/2.5/forecast?lat=" +
@@ -141,10 +160,13 @@ function getApi() {
     });
 }
 
+// Get city name from search history
 function searchHx(event) {
   cityName = event.srcElement.innerText;
   requestAgain();
 }
+
+// Search for city again
 function requestAgain() {
   todayForecast.innerHTML = "";
   day1.innerHTML = "";
@@ -157,19 +179,21 @@ function requestAgain() {
     cityName +
     "&limit=1&appid=" +
     apiKey;
-  fetch(requestCity)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      lat = data[0].lat;
-      lon = data[0].lon;
-      getApi();
-    });
+  fetch(requestCity).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        lat = data[0].lat;
+        lon = data[0].lon;
+        getApi();
+      });
+    }
+  });
 }
+
+// event listeners
 serachBtn.addEventListener("click", getCity);
 serachBtn.addEventListener("click", historyButtons);
 list.addEventListener("click", searchHx);
+window.addEventListener("load", getHistory);
 
-// clean code, comments, css, buttons, constraints on textbox,
+// To add: constraints on textbox no results
