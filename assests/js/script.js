@@ -144,12 +144,12 @@ function getApi() {
 
         date.textContent = dayjs(data.list[0].dt_txt).format("MM/DD/YYYY");
         currentWeatherTemp.textContent =
-          "Temp: " + data.list[0].main.temp + "°F";
+          "Temp: " + data.list[i].main.temp + "°F";
         currentimage;
         currentWeatherWind.textContent =
-          "Wind Speed: " + data.list[0].wind.speed + "mph";
+          "Wind Speed: " + data.list[i].wind.speed + "mph";
         currentWeatherHumidty.textContent =
-          "Humidity: " + data.list[0].main.humidity + "%";
+          "Humidity: " + data.list[i].main.humidity + "%";
         docEl.append(
           date,
           currentimage,
@@ -198,4 +198,4 @@ serachBtn.addEventListener("click", getCity);
 list.addEventListener("click", searchHx);
 window.addEventListener("load", getHistory);
 
-// To add: constraints on textbox no results
+// Just need error when enter invalid city
